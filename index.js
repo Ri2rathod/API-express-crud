@@ -1,16 +1,20 @@
 import express from "express";
 import bodyParser from 'body-parser';
-
-import env from 'dotenv' ;
-env.config();
-
-
+import morgan from "morgan";
+import  logger from "./config/winston.js";
 import userRouter from './routes/user.js';
+import env from 'dotenv' ;
+
+env.config();
 
 const app=express();
 
+app.use(morgan('combined',{ 'stream': logger.stream }));
+
 app.use(bodyParser.json());
+
 app.use('/user',userRouter);
+
 
 app.get('/',(req,res)=>{
     res.send('thisn is home pages');

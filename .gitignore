@@ -3,3 +3,7 @@
 
 #enviroment file variable
 .env
+
+
+#log files
+/logs/*

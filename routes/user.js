@@ -1,7 +1,8 @@
 import express  from "express";  
-const router=express.Router();
-import db from '../db.confg.js';
+import db from '../config/db.confg.js';
 
+
+const router=express.Router();
 
 router.get('/',(req,res)=>{
     let sql='SELECT * FROM `user`';

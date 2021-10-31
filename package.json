@@ -13,15 +13,17 @@
   },
   "keywords": [],
   "author": {
-    "name" : "Rathod Ritesh",
-    "email" : "rathodriteshrock@gmail.com",
-    "url" : "https://www.linkedin.com/in/ritesh-rathod-4b6983207/"
+    "name": "Rathod Ritesh",
+    "email": "rathodriteshrock@gmail.com",
+    "url": "https://www.linkedin.com/in/ritesh-rathod-4b6983207/"
   },
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mysql": "^2.18.1"
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
