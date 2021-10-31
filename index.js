@@ -10,8 +10,11 @@ env.config();
 const app=express();
 
 app.use(morgan('combined',{ 'stream': logger.stream }));
+app.use(express.urlencoded({
+    extended: true
+}));
 
-app.use(bodyParser.json());
+
 
 app.use('/user',userRouter);
 

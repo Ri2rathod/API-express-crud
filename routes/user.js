@@ -17,7 +17,26 @@ router.get('/',(req,res)=>{
     });
 });
 
-router.post('/')
+router.post('/',(req,res)=>{
+
+    let data=[
+       req.body.username,
+       req.body.gender,
+       req.body.address
+    ]
+
+    let sql='INSERT INTO `user`  (`userName`,`userGen`,`userAdd`) VALUES (?, ?, ?)' ;
+
+    db.query(sql,data,(err,data)=>{
+        if(err) throw err;
+       res.json({
+        status:200,
+        data,
+        message:"User Data Insert Sussessfully"
+       });
+    });
+
+});
 
 
 
