@@ -1,14 +1,22 @@
 {
   "name": "crud-api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "this is express api to perform CRUD operation",
   "main": "index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/cli.git"
+  },
   "scripts": {
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name" : "Rathod Ritesh",
+    "email" : "rathodriteshrock@gmail.com",
+    "url" : "https://www.linkedin.com/in/ritesh-rathod-4b6983207/"
+  },
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",

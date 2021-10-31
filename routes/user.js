@@ -14,9 +14,11 @@ router.get('/',(req,res)=>{
         message:"user list retiver successfully"
        });
     });
-
-
 });
+
+router.post('/')
+
+
 
 
 export default router;
