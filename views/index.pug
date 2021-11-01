@@ -1,0 +1,78 @@
+doctype html
+html(lang='en')
+    head
+        title CRUD API
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous')
+        //- link(rel="stylesheet", href='/css/style.css')
+    body
+        div.container
+            div.row
+                div.col-12
+                    
+                    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal')
+                        Launch Create new User
+                    //- button#liveToastBtn.btn.btn-primary(type='button') Show live toast
+                    
+                    div.position-fixed.bottom-0.end-0.p-3(style='z-index: 11')
+                        #liveToast.toast.hide(role='alert' aria-live='assertive' aria-atomic='true')
+                            .toast-header
+                                strong.me-auto Status
+                                small Now
+                                button.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+                            .toast-body= notification_massage
+                                
+
+
+                    #exampleModal.modal.fade( aria-labelledby='exampleModalLabel' aria-hidden='true')
+                        .modal-dialog
+                            .modal-content
+                                .modal-header
+                                    h5#exampleModalLabel.modal-title Add New User
+                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                .modal-body
+                                    form(action='/user' , method ='post' )
+                                        .mb-3
+                                            label.form-label(for='username') Enter User Name
+                                            input#username.form-control(type='text' aria-describedby='emailHelp' name='username')
+                                        .mb-3
+                                            label.form-label(for='address') Enter Address
+                                            input#address.form-control(type='text' name='address')
+                                        .mb-3.form-check
+                                            .form-check
+                                                input#flexRadioDefault1.form-check-input(type='radio' name='gender' value='male')
+                                                label.form-check-label(for='flexRadioDefault1')
+                                                    | Male
+                                            .form-check
+                                                input#flexRadioDefault2.form-check-input(type='radio' name='gender' value='female' checked='')
+                                                label.form-check-label(for='flexRadioDefault2')
+                                                    | Female
+                                        
+
+                                        .d-grid
+                                            button.btn.btn-success(type='submit') Submit
+
+                                    
+                                .modal-footer
+                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+
+            table.table 
+                thead 
+                    th Id 
+                    th Name
+                    th Gender
+                    th Address 
+                    th Create_timestamp 
+                    th Update Timestamp 
+                    th Action
+                tbody 
+                    each val in data
+                        tr 
+                            each val1, key in val
+                                td= val1
+                            td 
+                                form(method='post' action=`/user/${val.userID}?_method=DELETE`)
+                                    input(type="submit", value="Delete" ,class="btn btn-danger")
+
+        script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js' integrity='sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p' crossorigin='anonymous')
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js' integrity='sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF' crossorigin='anonymous')
+        script= script 
