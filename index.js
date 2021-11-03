@@ -1,5 +1,6 @@
 import express from "express";
-import bodyParser from 'body-parser';
+import session from 'express-session';
+import flash from 'connect-flash';
 import methodOverride from 'method-override';
 import morgan from "morgan";
 import  logger from "./config/winston.js";
@@ -10,6 +11,13 @@ env.config();
 
 const app=express();
 
+
+app.use(session({
+    secret:'djhxcvxfgshajfgjhgsjhfgsakjeauytsdfy',
+    resave:false,
+    saveUninitialized:false
+}));
+app.use(flash());
 app.use(morgan('combined',{ 'stream': logger.stream }));
 app.use(express.urlencoded({
     extended: true

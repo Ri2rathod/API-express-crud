@@ -5,25 +5,24 @@ html(lang='en')
         link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous')
         //- link(rel="stylesheet", href='/css/style.css')
     body
-        div.container
+        div.container.pt-5
             div.row
                 div.col-12
                     
-                    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal')
-                        Launch Create new User
+                    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#add_new_user') Create new User
                     //- button#liveToastBtn.btn.btn-primary(type='button') Show live toast
                     
-                    div.position-fixed.bottom-0.end-0.p-3(style='z-index: 11')
+                    div.position-fixed.top-0.end-0.p-3(style='z-index: 11')
                         #liveToast.toast.hide(role='alert' aria-live='assertive' aria-atomic='true')
                             .toast-header
-                                strong.me-auto Status
+                                strong.me-auto Notification
                                 small Now
                                 button.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
                             .toast-body= notification_massage
                                 
 
 
-                    #exampleModal.modal.fade( aria-labelledby='exampleModalLabel' aria-hidden='true')
+                    #add_new_user.modal.fade( aria-labelledby='exampleModalLabel' aria-hidden='true')
                         .modal-dialog
                             .modal-content
                                 .modal-header
@@ -46,33 +45,72 @@ html(lang='en')
                                                 input#flexRadioDefault2.form-check-input(type='radio' name='gender' value='female' checked='')
                                                 label.form-check-label(for='flexRadioDefault2')
                                                     | Female
-                                        
-
                                         .d-grid
                                             button.btn.btn-success(type='submit') Submit
+                                .modal-footer
+                                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
 
-                                    
+                    #edit_user.modal.fade( aria-labelledby='exampleModalLabel' aria-hidden='true')
+                        .modal-dialog
+                            .modal-content
+                                .modal-header
+                                    h5#exampleModalLabel.modal-title Edit User
+                                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                .modal-body
+                                    form(action='/user?_method=PATCH' , method ='post' )
+                                        div 
+                                            input#editUserID.form-control(type='hidden' aria-describedby='emailHelp' name='userID')
+                                        .mb-3
+                                            label.form-label(for='editUsername') Enter User Name
+                                            input#editUsername.form-control(type='text' aria-describedby='emailHelp' name='username')
+                                        .mb-3
+                                            label.form-label(for='editAddress') Enter Address
+                                            input#editAddress.form-control(type='text' name='address')
+                                        .mb-3.form-check
+                                            .form-check
+                                                input#editRadioMale.form-check-input(type='radio' name='gender' value='male')
+                                                label.form-check-label(for='editRadioMale')
+                                                    | Male
+                                            .form-check
+                                                input#editRadioFemale.form-check-input(type='radio' name='gender' value='female' checked='')
+                                                label.form-check-label(for='editRadioFemale')
+                                                    | Female
+                                        .d-grid
+                                            button.btn.btn-success(type='submit') Submit
                                 .modal-footer
                                     button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
 
             table.table 
                 thead 
-                    th Id 
-                    th Name
-                    th Gender
-                    th Address 
-                    th Create_timestamp 
-                    th Update Timestamp 
-                    th Action
+                    th(scope="col") Id 
+                    th(scope="col") Name
+                    th(scope="col") Gender
+                    th(scope="col") Address 
+                    th(scope="col" colspan='2') Action
                 tbody 
                     each val in data
                         tr 
                             each val1, key in val
                                 td= val1
                             td 
+                                button.btn.btn-primary(type='button' class='edit_user' data-bs-toggle='modal' data-bs-target='#edit_user' onclick=`edit_user(this)`) Edit
+                                //- form(method='post' action=`/user/${val.userID}?_method=PATCH`)
+                                //-     input(type="submit", value="Edit" ,class="btn btn-success")
+                            td 
                                 form(method='post' action=`/user/${val.userID}?_method=DELETE`)
                                     input(type="submit", value="Delete" ,class="btn btn-danger")
+
 
         script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js' integrity='sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p' crossorigin='anonymous')
         script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js' integrity='sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF' crossorigin='anonymous')
         script= script 
+        script.
+            function edit_user(element,id)
+            {
+                document.getElementById("editUserID").value =element.parentNode.parentNode.children[0].innerHTML;
+                document.getElementById("editUsername").value =element.parentNode.parentNode.children[1].innerHTML;
+                document.getElementById("editAddress").value =element.parentNode.parentNode.children[3].innerHTML;
+                document.getElementById("editRadioMale").checked =element.parentNode.parentNode.children[2].innerHTML=='male'?true:false;
+                document.getElementById("editRadioFemale").checked =element.parentNode.parentNode.children[2].innerHTML=='female'?true:false;
+            }
+
