@@ -23,6 +23,12 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(methodOverride('_method'));
+
+app.get('/cors', (req, res) => {
+	res.set('Access-Control-Allow-Origin', '*');
+
+	res.send({ "msg": "This has CORS enabled 🎈" })
+})
 app.set('view engine', 'pug');
 
 app.use('/user',userRouter);
