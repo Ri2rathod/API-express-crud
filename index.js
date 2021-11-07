@@ -6,6 +6,7 @@ import morgan from "morgan";
 import  logger from "./config/winston.js";
 import userRouter from './routes/user.js';
 import env from 'dotenv' ;
+import cors from 'cors';
 
 env.config();
 
@@ -23,12 +24,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(methodOverride('_method'));
+app.use(cors());
 
-app.get('/cors', (req, res) => {
-	res.set('Access-Control-Allow-Origin', '*');
-
-	res.send({ "msg": "This has CORS enabled 🎈" })
-})
 app.set('view engine', 'pug');
 
 app.use('/user',userRouter);
